@@ -16,9 +16,9 @@ public class BitSet {
         this.size = size;
     }
     /**
-     * Add number in the BitSet
+     * Adds number in the BitSet
      * @param num number that adds to the BitSet.
-     * @throws IllegalArgumentException set a number larger than the BitSet size.
+     * @throws IllegalArgumentException sets a number larger than the BitSet size.
      */
     void add (int num) {
         if (num <= size && num >= 0) {
@@ -35,7 +35,7 @@ public class BitSet {
     /**
      * Checks a number in the BitSet
      * @param num number that check in the BitSet.
-     * @throws IllegalArgumentException set a number larger than the BitSet size.
+     * @throws IllegalArgumentException sets a number larger than the BitSet size.
      */
     boolean contains (int num) {
         if (num <= size && num >= 0) {
