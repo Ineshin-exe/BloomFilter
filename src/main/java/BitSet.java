@@ -2,60 +2,54 @@ import java.util.Arrays;
 
 public class BitSet {
 
-    public boolean[] elements;
+    private int[] set;
+    private final static int BIT_SET = 32;
+    private int size;
+
+    /**
+     * Constructs a new, empty BitSet;
+     * @param size is a size of BitSet.
+     */
 
     BitSet(int size) {
-        this.elements = new boolean[size];
+        this.set = new int[size / BIT_SET + 1];
+        this.size = size;
     }
-
-    public int getSize() {
-        return elements.length;
-    }
-
-    public boolean[] getElements(){
-        return elements;
-    }
-
-    public void add (int element) {
-        if (element < getSize() && element >= 0) {
-            elements[element] = true;
+    /**
+     * Add number in the BitSet
+     * @param num number that adds to the BitSet.
+     * @throws IllegalArgumentException set a number larger than the BitSet size.
+     */
+    void add (int num) {
+        if (num <= size && num >= 0) {
+            int a = num / BIT_SET;
+            int b = num % BIT_SET;
+            if ((set[a] & (1 << b)) == 0) {
+                set[a] = set[a] ^ (1 << b);
+            }
         } else {
             throw new IllegalArgumentException("The element exceeds the value");
         }
     }
 
-    public void addAll (int[] element) {
-        for (int i = 0; i < element.length; i++) {
-            add(element[i]);
-        }
-    }
-
-    public void delete (int element) {
-        if (element <= getSize() && element >= 0) {
-            elements[element] = false;
+    /**
+     * Checks a number in the BitSet
+     * @param num number that check in the BitSet.
+     * @throws IllegalArgumentException set a number larger than the BitSet size.
+     */
+    boolean contains (int num) {
+        if (num <= size && num >= 0) {
+            int a = set[num / BIT_SET];
+            int b = num % BIT_SET;
+            return (a & (1 << b)) != 0;
         } else {
             throw new IllegalArgumentException("The element exceeds the value");
         }
-    }
-
-    public void deleteAll (int[] element) {
-        for (int i = 0; i < element.length; i++) {
-            delete(element[i]);
-        }
-    }
-
-    public boolean contains (int element) {
-        if (element <= getSize()) {
-            return elements[element];
-        } else {
-            throw new IllegalArgumentException("The element exceeds the maximum value");
-        }
-
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(elements);
+        return Arrays.toString(set);
     }
 
     @Override
@@ -63,11 +57,11 @@ public class BitSet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BitSet BitSet = (BitSet) o;
-        return Arrays.equals(elements, BitSet.elements);
+        return Arrays.equals(set, BitSet.set);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(elements);
+        return Arrays.hashCode(set);
     }
 }
