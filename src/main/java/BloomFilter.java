@@ -5,7 +5,6 @@ import java.util.Set;
 public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T> implements Set<T> {
 
     public BloomFilter (int size, int hashNum) {
-
         this.hashNum = hashNum;
         this.size = size;
         bitSet = new BitSet(size);
@@ -15,48 +14,40 @@ public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T>
     private int hashNum;
     private int size;
 
+    private double seed = Math.random()*103;
+
     private int hashCode(T object, int num) {
-
         int result = 0;
-
+        String a = object.toString();
         for (int i = 0; i < object.toString().length(); i++) {
-
-            result += (num * 32) + 85 + object.toString().charAt(i);
+            result += (a.charAt(i)*7^(a.length()-i)) * (seed * Math.sqrt(size) * (num+2));
         }
-
         return result % size;
     }
 
     public boolean add(T object) {
-
         for(int i = 0; i < hashNum; i++) {
-
             bitSet.add(hashCode(object, i));
         }
-
         return false;
     }
 
     public boolean contains(T object) {
-
         int count = 0;
-
         for(int i = 0; i < hashNum; i++) {
-
             if (bitSet.contains(hashCode(object, i))) count ++;
-
         }
-
         return count == hashNum;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        throw new UnsupportedOperationException("Method can not be realised");
     }
+
 
     @Override
     public int size() {
-        return size;
+        throw new UnsupportedOperationException("Method can not be realised");
     }
 }
