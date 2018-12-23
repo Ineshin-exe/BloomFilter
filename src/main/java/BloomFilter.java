@@ -4,6 +4,10 @@ import java.util.Set;
 
 public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T> implements Set<T> {
 
+    /**
+     * Recommended use size is a multiple of 32
+     */
+
     public BloomFilter (int size, int hashNum) {
         this.hashNum = hashNum;
         this.size = size;
@@ -13,6 +17,7 @@ public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T>
     private BitSet bitSet;
     private int hashNum;
     private int size;
+    private int counter;
 
     private double seed = Math.random()*103;
 
@@ -26,6 +31,7 @@ public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T>
     }
 
     public boolean add(T object) {
+        counter++;
         for(int i = 0; i < hashNum; i++) {
             bitSet.add(hashCode(object, i));
         }
@@ -48,6 +54,6 @@ public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T>
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Method can not be realised");
+        return counter;
     }
 }
