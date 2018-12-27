@@ -125,6 +125,4 @@ public class BloomFilterTest {
 
         assertNotEquals(32, bloomFilter2.size());
     }
-
-
 }

@@ -78,7 +78,5 @@ public class BitSetTest {
         } catch (IllegalArgumentException e) {
             System.out.println("The elements exceeds the value. True");
         }
-
     }
-
 }
