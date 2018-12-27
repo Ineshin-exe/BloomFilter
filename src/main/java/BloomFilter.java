@@ -9,6 +9,7 @@ public class BloomFilter <T extends Comparable<T>> extends AbstractCollection<T>
      */
 
     public BloomFilter (int size, int hashNum) {
+        if (size <= 0) throw new IllegalArgumentException("Size of BloomFilter can not be 0 or negative");
         this.hashNum = hashNum;
         this.size = size;
         bitSet = new BitSet(size);
