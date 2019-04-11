@@ -2,16 +2,16 @@ import java.util.Arrays;
 
 public class BitSet {
 
-    private int[] set;
+    private final int[] set;
     private final static int BIT_SET = 32;
-    private int size;
+    private final int size;
 
     /**
      * Constructs a new, empty BitSet;
      * @param size is a size of BitSet.
      */
 
-    BitSet(int size) {
+    BitSet(final int size) {
         if (size < 0) throw new IllegalArgumentException("Size of BitSet can not be negative");
         else if (size == 0) this.set = new int[0];
         else {
@@ -25,7 +25,7 @@ public class BitSet {
      * @param num number that adds to the BitSet.
      * @throws IllegalArgumentException sets a number larger than the BitSet size.
      */
-    void add (int num) {
+    void add (final int num) {
         if (size == 0) throw new IllegalArgumentException("Size of BitSet == 0");
         else if (num <= size && num >= 0) {
             int a = num / BIT_SET;
@@ -43,7 +43,7 @@ public class BitSet {
      * @param num number that check in the BitSet.
      * @throws IllegalArgumentException sets a number larger than the BitSet size.
      */
-    boolean contains (int num) {
+    boolean contains (final int num) {
         if (size == 0) return false;
         else if (num <= size && num >= 0) {
             int a = set[num / BIT_SET];
